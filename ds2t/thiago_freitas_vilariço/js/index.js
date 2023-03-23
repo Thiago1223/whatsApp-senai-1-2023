@@ -1,13 +1,15 @@
 'use strict'
 
-import { contatos } from "./contatos.js"
+import { preencherContatos } from "./app.js"
+
+const contatos = await preencherContatos('11955577796')
 
 const criarCard = (contato, indice) => {
 
     const conversa = document.createElement('div')
     conversa.classList.add('container-conversas')
 
-    conversa.addEventListener('click', (event) => {
+    conversa.addEventListener('click', async (event) => {
         var container = document.getElementById('container-chat')
         container.replaceChildren(criarHeader(indice), criarMensagem(indice), carregarBarraDeMensagem())
         barraDeRolagem()
