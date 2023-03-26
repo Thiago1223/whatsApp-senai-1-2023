@@ -2,7 +2,47 @@
 
 import { preencherContatos } from "./app.js"
 
-const contatos = await preencherContatos('11955577796')
+const contatos = await preencherContatos('1194457796')
+
+const criarHeaderEsquerdo = () => {
+
+    const headerEsquerdo = document.getElementById('header-esquerdo')
+    headerEsquerdo.classList.add('header-esquerdo')
+
+    const imgPerfil = document.createElement('img')
+    imgPerfil.classList.add('img-perfil')
+    imgPerfil.src = `./${contatos.img}`
+
+    const navPerfil = document.createElement('nav')
+    navPerfil.classList.add('nav-perfil')
+
+    const userIcon = document.createElement('li')
+
+    const user = document.createElement('i')
+    user.classList.add('fa-solid', 'fa-users')
+
+    const circleIcon = document.createElement('li')
+
+    const circle = document.createElement('i')
+    circle.classList.add('fas', 'fa-circle-notch')
+
+    const messageIcon = document.createElement('li')
+
+    const message = document.createElement('i')
+    message.classList.add('fa-solid', 'fa-message')
+
+    const verticalIcon = document.createElement('li')
+
+    const vertical = document.createElement('i')
+    vertical.classList.add('fa-solid', 'fa-ellipsis-vertical')
+
+    headerEsquerdo.append(imgPerfil, navPerfil)
+    
+    navPerfil.append(userIcon, user, circleIcon, circle, messageIcon, message, verticalIcon, vertical)
+
+    return headerEsquerdo
+
+}
 
 const criarCard = (contato, indice) => {
 
@@ -51,14 +91,14 @@ const criarHeader = (indice) => {
 
     const imagemPerfil = document.createElement('img')
     imagemPerfil.classList.add('img-perfil');
-    imagemPerfil.src = `./${contatos[indice].image}`
+    imagemPerfil.src = `./${contatos.contatos[indice].image}`
 
     const containerPerfil = document.createElement('div')
     containerPerfil.classList.add('container-perfil')
 
     const infoNome = document.createElement('span')
     infoNome.classList.add('info-nome')
-    infoNome.textContent = contatos[indice].name
+    infoNome.textContent = contatos.contatos[indice].name
 
     const infoConversa = document.createElement('span')
     infoConversa.classList.add('info-conversa')
@@ -83,7 +123,7 @@ const criarMensagem = (indice) => {
     const containerMensagensDireita = document.createElement('div')
     containerMensagensDireita.classList.add('container-mensagens-direita');
 
-    contatos[indice].messages.forEach((mensagem) => {
+    contatos.contatos[indice].messages.forEach((mensagem) => {
 
         const caixaMensagensMinha = document.createElement('div')
         caixaMensagensMinha.classList.add('caixa-mensagens-minha')
@@ -117,7 +157,7 @@ const criarMensagem = (indice) => {
 
             caixaMensagensMinha.append(msgMinha, horaMinha)
 
-        } else if (mensagem.sender == contatos[indice].name) {
+        } else if (mensagem.sender == contatos.contatos[indice].name) {
 
             msgSua.classList.add('msg-sua')
             msgSua.textContent = mensagem.content
@@ -140,7 +180,7 @@ const criarMensagem = (indice) => {
 
 const carregarContatos = () => {
     const container = document.getElementById('container-mensagens')
-    const contatosMensagens = contatos.map(criarCard)
+    const contatosMensagens = contatos.contatos.map(criarCard)
     container.replaceChildren(...contatosMensagens)
 }
 
@@ -151,4 +191,5 @@ const carregarBarraDeMensagem = () => {
     return footer
 }
 
+criarHeaderEsquerdo()
 carregarContatos()
